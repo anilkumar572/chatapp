@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456551625123",
+    "project_id": "chatapp2-b4468",
+    "storage_bucket": "chatapp2-b4468.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456551625123:android:9836159f161cd53a7a2a16",
+        "android_client_info": {
+          "package_name": "com.example.gchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgGw8CO93xMHk8oUlGYoq5_Sfh74UQ7co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
