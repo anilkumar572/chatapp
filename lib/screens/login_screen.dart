@@ -18,6 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   final userkey = GlobalKey<FormState>();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,18 +78,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       backgroundColor: Colors.blue,
                       minimumSize: Size(0, 50),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (userkey.currentState!.validate()) {
+                        isLoading = true;
+                        setState(() {});
                         LoginController.login(
                             email: email.text,
                             password: password.text,
                             context: context);
+                        isLoading = false;
+                        setState(() {});
                       }
                     },
-                    child: Text(
-                      'Login',
-                      style: TextStyle(color: Colors.white, fontSize: 10),
-                    ),
+                    child: isLoading
+                        ? CircularProgressIndicator()
+                        : Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white, fontSize: 10),
+                          ),
                   ),
                 ),
                 Row(

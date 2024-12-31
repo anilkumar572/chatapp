@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gchat/main.dart';
+import 'package:gchat/providers/profile_provider.dart';
+import 'package:gchat/screens/edit_profile.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -16,30 +20,45 @@ class _ProfilePageState extends State<ProfilePage> {
 
   var authUser = FirebaseAuth.instance.currentUser;
 
-  void getData() async {
-    await db.collection('users').doc(authUser!.uid).get().then((dataSnapShot) {
-      userdata = dataSnapShot.data();
-    });
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    getData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    var val = context.watch<DataProvider>();
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Column(
           children: [
-            Text(userdata?['name'] ?? " "),
-            Text(userdata?['country'] ?? " "),
-            Text(userdata?['email'] ?? " "),
+            CircleAvatar(
+              radius: 40,
+              child: Text(
+                val.name[0].toUpperCase(),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              val.name,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              val.email,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return EditProfile();
+                  }));
+                },
+                child: Text("Edit Profile"))
           ],
         ),
       ),

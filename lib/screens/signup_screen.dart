@@ -17,7 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController country = TextEditingController();
   final userkey = GlobalKey<FormState>();
-
+  bool isLoadind = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,15 +113,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 onPressed: () {
                                   if (userkey.currentState!.validate()) {
+                                    isLoadind = true;
+                                    setState(() {});
                                     SignUpController.createAccount(
                                         email: email.text,
                                         password: password.text,
                                         name: name.text,
                                         country: country.text,
                                         context: context);
+                                    isLoadind = false;
+                                    setState(() {});
                                   }
                                 },
-                                child: Text('Signup')),
+                                child: isLoadind
+                                    ? CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
+                                    : Text('Signup')),
                           ),
                         ],
                       )
